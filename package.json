@@ -251,7 +251,7 @@
   },
   "scripts": {
     "watch": "tsc -watch -p ./",
-    "build:webview": "webpack --mode production",
+    "build:webview": "webpack --mode development",
     "watch:webview": "webpack --mode development --watch"
   },
   "dependencies": {

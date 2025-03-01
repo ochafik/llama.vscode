@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -11,6 +12,12 @@ module.exports = {
     library: 'index',
     clean: true, // Clean the output directory before emit
   },
+  plugins: [
+    // Force React to use development mode
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
+  ],
   externals: {
     vscode: 'commonjs vscode', // Exclude vscode module from the bundle
   },
