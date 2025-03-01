@@ -5,6 +5,7 @@ let app: Application
 export function activate(context: vscode.ExtensionContext) {
     app = Application.getInstance();
     app.architect.setStatusBar(context)
+    app.architect.setSidePanel(context);
     app.architect.setOnChangeConfiguration(context);
     app.architect.setCompletionProvider(context);
     app.architect.registerCommandManualCompletion(context);

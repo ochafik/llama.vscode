@@ -2,6 +2,9 @@ import axios from "axios";
 import {Application} from "./application";
 import { EventEmitter } from 'events';
 import vscode, { Terminal } from "vscode";
+import { ChatCompletion, ChatCompletionChunk, ChatCompletionMessageParam, ChatCompletionTool, ChatCompletionToolChoiceOption } from "openai/resources";
+import { Messages } from "openai/resources/chat/completions/messages";
+import { Stream } from "openai/streaming";
 
 const STATUS_OK = 200;
 
@@ -113,6 +116,30 @@ export class LlamaServer {
             t_max_prompt_ms: this.app.extConfig.t_max_prompt_ms,
             t_max_predict_ms: this.app.extConfig.t_max_predict_ms,
         };
+    }
+
+    getChatCompletion = async (
+        messages: ChatCompletionMessageParam[],
+        tools?: ChatCompletionTool[],
+        tool_choice?: ChatCompletionToolChoiceOption,
+    ): Promise<Stream<ChatCompletionChunk>> => {
+        const client = this.app.extConfig.openai_client;
+        if (!client) {
+            throw new Error("OpenAI client not found");
+        }
+
+        const rsp = await client.chat.completions.create({
+            model: this.app.extConfig.openai_client_model || "",
+            messages: messages,
+            tools: tools,
+            tool_choice: tool_choice,
+            // max_tokens: this.app.extConfig.n_predict,
+            temperature: 0.1,
+            top_p: this.defaultRequestParams.top_p,
+            stream: true
+        });
+
+        return rsp;
     }
 
     getFIMCompletion = async (

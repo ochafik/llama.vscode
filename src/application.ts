@@ -7,6 +7,7 @@ import {Statusbar} from "./statusbar";
 import {Menu} from "./menu";
 import {Completion} from "./completion";
 import {Logger} from "./logger";
+import { SidePanel } from "./sidepanel";
 
 export class Application {
     private static instance: Application;
@@ -16,6 +17,7 @@ export class Application {
     public lruResultCache: LRUCache
     public architect: Architect
     public statusbar: Statusbar
+    public sidePanel: SidePanel
     public menu: Menu
     public completion: Completion
     public logger: Logger
@@ -27,6 +29,7 @@ export class Application {
         this.lruResultCache = new LRUCache(this.extConfig.max_cache_keys);
         this.architect = new Architect(this);
         this.statusbar = new Statusbar(this)
+        this.sidePanel = new SidePanel(this)
         this.menu = new Menu(this)
         this.completion = new Completion(this)
         this.logger = new Logger(this)

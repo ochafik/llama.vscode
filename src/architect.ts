@@ -207,4 +207,8 @@ export class Architect {
             vscode.commands.registerCommand('llama-vscode.showMenu', this.app.menu.showMenu)
         );
     }
+
+    setSidePanel = (context: vscode.ExtensionContext) => {
+        this.app.sidePanel.initializeSidePanel(context);
+    }
 }

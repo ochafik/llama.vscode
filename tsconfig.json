@@ -4,11 +4,15 @@
 	  "module": "commonjs",
 	  "outDir": "dist",
 	  "lib": ["ES2020", "DOM"],
+		"jsx": "react",
 	  "strict": true,
 	  "moduleResolution": "node",
 	  "sourceMap": true,
 	  "resolveJsonModule": true,
-	  "esModuleInterop": true
-	}
+	  "esModuleInterop": true,
+	  "typeRoots": ["./node_modules/@types", "./src/types"],
+	  "skipLibCheck": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
   }
-  
